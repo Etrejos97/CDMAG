@@ -1,0 +1,73 @@
+.home-container {
+  width: 100%;
+  max-width: 800px;
+  padding: 2rem;
+}
+
+.glass-card-home {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 4rem 3rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  text-align: center;
+}
+
+.glass-card-home h1 {
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8),
+               0 0 20px rgba(0, 0, 0, 0.6);
+  font-weight: 900 !important;
+}
+
+.glass-card-home .lead {
+  font-size: 1.5rem;
+  font-weight: 400;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7),
+               0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.glass-card-home p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7),
+               0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.glass-card-home .btn {
+  font-weight: 600;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-width: 2px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.glass-card-home .btn-light {
+  background: white;
+  color: #333;
+  border-color: white;
+}
+
+.glass-card-home .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.glass-card-home .btn-outline-light {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white;
+  border-color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.glass-card-home .btn-outline-light:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: white;
+  color: white;
+}
