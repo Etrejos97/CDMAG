@@ -1,6 +1,21 @@
 import { Link } from 'react-router-dom';
 import './Login.css';
 
+/**
+ * @component Login
+ * @description Componente de página de inicio de sesión para Casa de Modas A.G.
+ * Proporciona un formulario con efecto glassmorphism para la autenticación de usuarios.
+ * 
+ * @version 1.0.0
+ * @author CDMAG Team
+ * 
+ * @example
+ * import Login from './pages/Login';
+ * 
+ * function App() {
+ *   return <Login />;
+ * }
+ */
 const Login = () => {
   return (
     <div className="login-container">
@@ -50,5 +65,6 @@ const Login = () => {
     </div>
   );
 };
+// Exportamos el componente para su uso en otras partes de la aplicación
 
 export default Login;

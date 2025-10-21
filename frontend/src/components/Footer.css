@@ -1,3 +1,16 @@
+/**
+ * Estilos para el pie de página
+ * @version 1.0.0
+ * 
+ * Define los estilos del footer con efecto glassmorphism oscuro
+ * y efectos de texto para mejor legibilidad sobre fondos dinámicos.
+ */
+
+/* Contenedor del footer con efecto de vidrio oscuro
+ * @component footer-glass
+ * Implementa un fondo semitransparente con desenfoque
+ * y bordes sutiles
+ */
 .footer-glass {
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(15px);

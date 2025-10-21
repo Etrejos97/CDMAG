@@ -1,9 +1,20 @@
+/**
+ * Estilos para la página de inicio (Home)
+ * Este archivo contiene los estilos específicos para la página principal,
+ * incluyendo efectos de vidrio (glassmorphism) y animaciones.
+ */
+
+/* Contenedor principal - Define el ancho máximo y el padding para el contenido */
 .home-container {
   width: 100%;
   max-width: 800px;
   padding: 2rem;
 }
 
+/* Tarjeta principal con efecto de vidrio (glassmorphism) 
+ * Utiliza backdrop-filter para el efecto de desenfoque y
+ * rgba para transparencia controlada
+ */
 .glass-card-home {
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(20px);
@@ -15,6 +26,10 @@
   text-align: center;
 }
 
+/* Estilo para el título principal 
+ * Aplica efectos de sombra de texto en capas para mejor legibilidad
+ * sobre el fondo transparente
+ */
 .glass-card-home h1 {
   letter-spacing: 2px;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8),
@@ -22,6 +37,9 @@
   font-weight: 900 !important;
 }
 
+/* Estilo para el subtítulo principal
+ * Utiliza un tamaño de fuente más grande y sombras más sutiles
+ */
 .glass-card-home .lead {
   font-size: 1.5rem;
   font-weight: 400;
@@ -36,6 +54,11 @@
                0 0 10px rgba(0, 0, 0, 0.5);
 }
 
+/* Estilos base para todos los botones
+ * Define la apariencia común y las animaciones
+ * @transition: Animación suave para el hover
+ * @box-shadow: Sombra suave para efecto de elevación
+ */
 .glass-card-home .btn {
   font-weight: 600;
   border-radius: 50px;
@@ -46,6 +69,9 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
+/* Estilo específico para el botón primario (light)
+ * Usa fondo blanco sólido para mayor contraste
+ */
 .glass-card-home .btn-light {
   background: white;
   color: #333;
@@ -57,6 +83,11 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
 }
 
+/* Estilo para el botón secundario (outline)
+ * Implementa efecto de vidrio similar al fondo pero más sutil
+ * @backdrop-filter: Aplica desenfoque para efecto de transparencia
+ * @text-shadow: Mejora la legibilidad del texto sobre el fondo transparente
+ */
 .glass-card-home .btn-outline-light {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
@@ -66,6 +97,9 @@
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
+/* Estado hover del botón outline
+ * Aumenta la opacidad del fondo manteniendo el efecto de vidrio
+ */
 .glass-card-home .btn-outline-light:hover {
   background: rgba(255, 255, 255, 0.3);
   border-color: white;

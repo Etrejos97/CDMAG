@@ -1,6 +1,26 @@
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
+/**
+ * @component Navbar
+ * @description Barra de navegación principal con efecto glassmorphism.
+ * Proporciona navegación entre las diferentes secciones de la aplicación.
+ * 
+ * @version 1.0.0
+ * @author CDMAG Team
+ * 
+ * @example
+ * import Navbar from './components/Navbar';
+ * 
+ * function App() {
+ *   return (
+ *     <div>
+ *       <Navbar />
+ *       {Resto del contenido }
+ *     </div>
+ *   );
+ * }
+ */
 const Navbar = () => {
   return (
     <nav className="navbar-glass navbar navbar-expand-lg">
@@ -38,4 +58,5 @@ const Navbar = () => {
   );
 };
 
+// Exportamos el componente para su uso en otras partes de la aplicación
 export default Navbar;

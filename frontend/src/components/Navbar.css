@@ -1,3 +1,17 @@
+/**
+ * Estilos para la barra de navegación principal
+ * @version 1.0.0
+ * 
+ * Este archivo contiene los estilos para la barra de navegación,
+ * implementando un diseño moderno con efecto glassmorphism y
+ * animaciones en los elementos interactivos.
+ */
+
+/* Contenedor principal de la barra de navegación
+ * @component navbar-glass
+ * Implementa el efecto de vidrio con fondo semitransparente
+ * y sombras sutiles para elevación
+ */
 .navbar-glass {
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(15px);

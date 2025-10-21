@@ -1,6 +1,21 @@
 import { Link } from 'react-router-dom';
 import './Home.css';
 
+/**
+ * @component Home
+ * @description Página principal de la aplicación Casa de Modas A.G. Muestra la landing page
+ * con información introductoria y botones de acceso principales.
+ * 
+ * @returns {JSX.Element} Un componente que renderiza la página de inicio
+ * con una tarjeta de presentación y botones de acción.
+ * 
+ * @example
+ * import Home from './pages/Home';
+ * 
+ * function App() {
+ *   return <Home />;
+ * }
+ */
 const Home = () => {
   return (
     <div className="home-container">
@@ -28,4 +43,7 @@ const Home = () => {
   );
 };
 
+
+
+// Exportamos el componente para su uso en otras partes de la aplicación
 export default Home;

@@ -1,5 +1,25 @@
+
 import './Footer.css';
 
+/**
+ * @component Footer
+ * @description Componente de pie de página con efecto glassmorphism.
+ * Muestra información de copyright y detalles de la aplicación.
+ * 
+ * @version 1.0.0
+ * @author CDMAG Team
+ * 
+ * @example
+ * import Footer from './components/Footer';
+ * 
+ * function App() {
+ *   return (
+ *     <div>
+ *       <Footer />
+ *     </div>
+ *   );
+ * }
+ */
 const Footer = () => {
   return (
     <footer className="footer-glass mt-auto">

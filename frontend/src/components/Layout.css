@@ -1,3 +1,16 @@
+/**
+ * Estilos para el layout principal de la aplicación
+ * @version 1.0.0
+ * 
+ * Define la estructura base y el fondo de la aplicación,
+ * asegurando una disposición correcta de los elementos
+ * y una imagen de fondo responsiva.
+ */
+
+/* Contenedor principal del layout
+ * @component layout-container
+ * Configuración del contenedor flex y fondo de la aplicación
+ */
 .layout-container {
   min-height: 100vh;
   display: flex;
