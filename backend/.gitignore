@@ -1,0 +1,17 @@
+# Variables de entorno
+.env
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
+
+# Otros archivos comunes para ignorar
+node_modules/
+dist/
+coverage/
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
