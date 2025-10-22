@@ -1,15 +1,17 @@
-import express from 'express' 
-import cors from 'cors' 
-import dotenv from 'dotenv' 
-import router from './routes/productoRouter.js' 
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import router from "./routes/productRoutes.js";
 
-const app = express() 
-dotenv.config() 
+dotenv.config();
+const app = express();
 
-app.use(cors()) 
-app.use(express.json()) 
-app.use('/', router) 
+app.use(cors());
+app.use(express.json());
 
-app.listen(process.env.PORT, ()=>{ 
-    console.log("Conectado al puerto: " + process.env.PORT) 
-})
+app.use("/", router);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en puerto ${PORT}`);
+});
