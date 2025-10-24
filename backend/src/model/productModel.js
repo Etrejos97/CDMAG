@@ -9,35 +9,61 @@ export const listarProductos = async () => {
 
 // Insertar producto
 export const insertarProducto = async (producto) => {
-  const { nombre, descripcion, precio, stock, categoria_id } = producto;
+  const {
+    nombre,
+    referencia,
+    descripcion,
+    precio,
+    cantidadStock,
+    nivelMinimoStock,
+    tipoProducto,
+  } = producto;
+
   const pool = await getConnection;
   await pool
     .request()
-    .input("Nombre", sql.VarChar, nombre)
-    .input("Descripcion", sql.VarChar, descripcion)
-    .input("Precio", sql.Float, precio)
-    .input("Stock", sql.Int, stock)
-    .input("Categoria_id", sql.Int, categoria_id)
+    .input("Nombre", sql.VarChar(100), nombre)
+    .input("Referencia", sql.VarChar(50), referencia)
+    .input("Descripcion", sql.VarChar(500), descripcion)
+    .input("Precio", sql.Decimal(10, 2), precio)
+    .input("CantidadStock", sql.Int, cantidadStock)
+    .input("NivelMinimoStock", sql.Int, nivelMinimoStock)
+    .input("TipoProducto", sql.VarChar(20), tipoProducto)
     .execute("sp_insertar_producto");
 };
 
 // Editar producto
 export const editarProducto = async (producto) => {
-  const { id, nombre, descripcion, precio, stock, categoria_id } = producto;
+  const {
+    id,
+    nombre,
+    referencia,
+    descripcion,
+    precio,
+    cantidadStock,
+    nivelMinimoStock,
+    tipoProducto,
+  } = producto;
+
   const pool = await getConnection;
   await pool
     .request()
     .input("Id", sql.Int, id)
-    .input("Nombre", sql.VarChar, nombre)
-    .input("Descripcion", sql.VarChar, descripcion)
-    .input("Precio", sql.Float, precio)
-    .input("Stock", sql.Int, stock)
-    .input("Categoria_id", sql.Int, categoria_id)
+    .input("Nombre", sql.VarChar(100), nombre)
+    .input("Referencia", sql.VarChar(50), referencia)
+    .input("Descripcion", sql.VarChar(500), descripcion)
+    .input("Precio", sql.Decimal(10, 2), precio)
+    .input("CantidadStock", sql.Int, cantidadStock)
+    .input("NivelMinimoStock", sql.Int, nivelMinimoStock)
+    .input("TipoProducto", sql.VarChar(20), tipoProducto)
     .execute("sp_editar_producto");
 };
 
-// Eliminar producto
+// Eliminar producto (soft delete)
 export const eliminarProducto = async (id) => {
   const pool = await getConnection;
-  await pool.request().input("Id", sql.Int, id).execute("sp_eliminar_producto");
+  await pool
+    .request()
+    .input("Id", sql.Int, id)
+    .execute("sp_eliminar_producto");
 };
