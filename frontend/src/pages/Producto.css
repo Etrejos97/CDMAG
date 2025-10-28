@@ -1,7 +1,6 @@
 /**
  * Estilos para la página de Productos
- * @version 2.0.0
- * Versión simplificada sin footer y sin columna mínimo
+ * @version 3.1.0 - Con Modal CRUD y botón X visible
  */
 
 .producto-container {
@@ -20,7 +19,6 @@
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
 
-/* Header de la página */
 .producto-header {
   text-align: center;
   margin-bottom: 2rem;
@@ -42,14 +40,12 @@
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
 }
 
-/* Sección de acciones */
 .producto-actions {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 1.5rem;
 }
 
-/* Botón primario */
 .btn-primary-producto {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border: none;
@@ -60,6 +56,7 @@
   transition: all 0.3s ease;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  cursor: pointer;
 }
 
 .btn-primary-producto:hover {
@@ -68,14 +65,12 @@
   background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
 }
 
-/* Loading spinner */
 .loading-container {
   text-align: center;
   padding: 3rem;
   color: white;
 }
 
-/* Alerta de error */
 .glass-alert {
   background: rgba(220, 53, 69, 0.2);
   backdrop-filter: blur(10px);
@@ -86,14 +81,12 @@
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-/* Tabla responsive */
 .table-responsive {
   border-radius: 15px;
   overflow: hidden;
-  margin-bottom: 0; /* Eliminado margen inferior porque no hay footer */
+  margin-bottom: 0;
 }
 
-/* Tabla con glassmorphism */
 .table-glass {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
@@ -102,7 +95,6 @@
   margin-bottom: 0;
 }
 
-/* Header de tabla con mejor contraste */
 .table-glass thead {
   background: linear-gradient(135deg, 
     rgba(102, 126, 234, 0.5) 0%, 
@@ -131,7 +123,6 @@
   cursor: default;
 }
 
-/* Filas de la tabla */
 .table-glass tbody tr {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
@@ -148,7 +139,6 @@
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-/* Badges */
 .table-glass .badge {
   padding: 0.5rem 0.75rem;
   font-weight: 600;
@@ -156,7 +146,6 @@
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-/* Botones de acciones */
 .table-glass .btn-group .btn {
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
@@ -187,6 +176,286 @@
   transform: translateY(-2px);
 }
 
+/* ========================================== */
+/* ESTILOS DEL MODAL */
+/* ========================================== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content-producto {
+  background: linear-gradient(135deg, 
+    rgba(45, 55, 72, 0.95) 0%, 
+    rgba(31, 41, 55, 0.95) 100%
+  );
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-radius: 20px;
+  border: 2px solid rgba(102, 126, 234, 0.4);
+  padding: 2rem;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+              0 0 30px rgba(102, 126, 234, 0.3);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Header del Modal */
+.modal-header-producto {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(102, 126, 234, 0.4);
+}
+
+.modal-header-producto h3 {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  color: #ffffff;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.9),
+               0 0 20px rgba(102, 126, 234, 0.6);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+/* Botón X - CON X VISIBLE */
+.btn-close-modal {
+  background: linear-gradient(135deg, 
+    rgba(239, 68, 68, 0.8) 0%, 
+    rgba(220, 38, 38, 0.8) 100%
+  );
+  border: 2px solid rgba(239, 68, 68, 0.6);
+  color: #ffffff;
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  /* X grande y visible */
+  font-size: 2.5rem;
+  font-weight: 400;
+  line-height: 1;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+}
+
+.btn-close-modal:hover {
+  background: linear-gradient(135deg, 
+    rgba(220, 38, 38, 0.9) 0%, 
+    rgba(185, 28, 28, 0.9) 100%
+  );
+  transform: scale(1.1) rotate(90deg);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.6);
+}
+
+/* Formulario del Modal */
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group-modal {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Labels MEJORADOS */
+.form-group-modal label {
+  font-size: 1rem;
+  font-weight: 800;
+  margin-bottom: 0.6rem;
+  color: #ffffff;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9),
+               0 0 10px rgba(102, 126, 234, 0.5);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+/* Inputs MEJORADOS */
+.form-group-modal input,
+.form-group-modal select,
+.form-group-modal textarea {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(102, 126, 234, 0.3);
+  border-radius: 10px;
+  color: #ffffff;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.form-group-modal input::placeholder,
+.form-group-modal textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
+}
+
+.form-group-modal input:focus,
+.form-group-modal select:focus,
+.form-group-modal textarea:focus {
+  outline: none;
+  border-color: rgba(102, 126, 234, 0.9);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.5),
+              inset 0 2px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+.form-group-modal textarea {
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+}
+
+.form-group-modal select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+/* Botones del Modal */
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid rgba(102, 126, 234, 0.3);
+}
+
+.btn-cancel,
+.btn-save {
+  flex: 1;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 800;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-cancel {
+  background: linear-gradient(135deg, 
+    rgba(107, 114, 128, 0.8) 0%, 
+    rgba(75, 85, 99, 0.8) 100%
+  );
+  border: 2px solid rgba(156, 163, 175, 0.5);
+  color: #ffffff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.btn-cancel:hover {
+  background: linear-gradient(135deg, 
+    rgba(75, 85, 99, 0.9) 0%, 
+    rgba(55, 65, 81, 0.9) 100%
+  );
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn-save {
+  background: linear-gradient(135deg, 
+    #10b981 0%, 
+    #059669 100%
+  );
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.5);
+  border: 2px solid rgba(16, 185, 129, 0.3);
+}
+
+.btn-save:hover {
+  background: linear-gradient(135deg, 
+    #059669 0%, 
+    #047857 100%
+  );
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+}
+
+.btn-save:active,
+.btn-cancel:active {
+  transform: translateY(-1px);
+}
+
+/* Scrollbar personalizado para el modal */
+.modal-content-producto::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content-producto::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.modal-content-producto::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.5);
+  border-radius: 10px;
+}
+
+.modal-content-producto::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 126, 234, 0.7);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .producto-container {
@@ -208,5 +477,28 @@
   .table-glass thead th,
   .table-glass tbody td {
     padding: 0.5rem;
+  }
+
+  .modal-content-producto {
+    width: 95%;
+    padding: 1.5rem;
+  }
+
+  .modal-header-producto h3 {
+    font-size: 1.5rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+  }
+
+  .btn-close-modal {
+    width: 40px;
+    height: 40px;
+    font-size: 2rem;
   }
 }
