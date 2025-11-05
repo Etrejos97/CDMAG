@@ -1,3 +1,4 @@
+// ...existing code...
 import { useState, useEffect } from 'react';
 import { getProductos, createProducto, updateProducto, deleteProducto } from '../services/productoService.js';
 import './Producto.css';
@@ -6,7 +7,6 @@ export default function Producto() {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentProducto, setCurrentProducto] = useState({
@@ -27,18 +27,15 @@ export default function Producto() {
   const fetchProductos = () => {
     setLoading(true);
     setError('');
-    
     const onSuccess = (lista) => {
       setProductos(lista);
       setLoading(false);
     };
-    
     const onError = (error) => {
       setError('Error al cargar los productos');
       console.error('Error:', error);
       setLoading(false);
     };
-    
     getProductos(onSuccess, onError);
   };
 
@@ -49,12 +46,10 @@ export default function Producto() {
       closeModal();
       alert('✅ Producto creado exitosamente');
     };
-    
     const onError = (error) => {
       console.error('Error al crear:', error);
       alert('❌ Error al crear el producto');
     };
-    
     createProducto(currentProducto, onSuccess, onError);
   };
 
@@ -65,30 +60,25 @@ export default function Producto() {
       closeModal();
       alert('✅ Producto actualizado exitosamente');
     };
-    
     const onError = (error) => {
       console.error('Error al actualizar:', error);
       alert('❌ Error al actualizar el producto');
     };
-    
     updateProducto(currentProducto.idProducto, currentProducto, onSuccess, onError);
   };
 
   const handleDelete = (id, nombre) => {
     const confirmar = window.confirm(`¿Estás seguro de eliminar "${nombre}"?`);
-    
     if (confirmar) {
       const onSuccess = (response) => {
         console.log('Producto eliminado:', response);
         fetchProductos();
         alert('✅ Producto eliminado exitosamente');
       };
-      
       const onError = (error) => {
         console.error('Error al eliminar:', error);
         alert('❌ Error al eliminar el producto');
       };
-      
       deleteProducto(id, onSuccess, onError);
     }
   };
@@ -139,20 +129,15 @@ export default function Producto() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setCurrentProducto({
-      ...currentProducto,
-      [name]: value
-    });
+    setCurrentProducto({ ...currentProducto, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
     if (!currentProducto.nombre || !currentProducto.referencia || !currentProducto.precio) {
       alert('⚠️ Por favor completa los campos requeridos');
       return;
     }
-    
     if (isEditing) {
       handleUpdate();
     } else {
@@ -179,226 +164,175 @@ export default function Producto() {
   return (
     <div className="producto-container">
       <div className="glass-card-producto">
-        
         <div className="producto-header">
-          <h1>Gestión de Productos</h1>
-          <p className="subtitle">Casa de Modas A.G</p>
+          <h1>📦 Gestión de Productos</h1>
+          <p className="subtitle">Casa de Modas A.G - Administra tu inventario</p>
         </div>
 
         <div className="producto-actions">
-          <button className="btn btn-primary-producto" onClick={openCreateModal}>
-            Agregar Producto
+          <button className="btn-primary-producto" onClick={openCreateModal}>
+            ➕ Crear Nuevo Producto
           </button>
         </div>
 
-        {loading && (
-          <div className="loading-container">
-            <div className="spinner-border text-light" role="status">
-              <span className="visually-hidden">Cargando...</span>
-            </div>
-            <p className="mt-3">Cargando productos...</p>
-          </div>
-        )}
+        {error && <div className="glass-alert">{error}</div>}
 
-        {error && (
-          <div className="alert alert-danger glass-alert" role="alert">
-            {error}
+        {loading ? (
+          <div className="loading-container">Cargando productos...</div>
+        ) : productos.length === 0 ? (
+          <div className="glass-alert">
+            <p>📦 No hay productos registrados</p>
+            <p>Haz clic en "Crear Nuevo Producto" para comenzar</p>
           </div>
-        )}
-
-        {!loading && !error && (
+        ) : (
           <div className="table-responsive">
-            <table className="table table-glass">
+            <table className="table-glass">
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>NOMBRE</th>
-                  <th>REFERENCIA</th>
-                  <th>PRECIO</th>
-                  <th>STOCK</th>
-                  <th>TIPO</th>
-                  <th>FECHA</th>
-                  <th>ACCIONES</th>
+                  <th>Nombre</th>
+                  <th>Referencia</th>
+                  <th>Precio</th>
+                  <th>Stock</th>
+                  <th>Tipo</th>
+                  <th>Fecha</th>
+                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
-                {productos.length === 0 ? (
-                  <tr>
-                    <td colSpan="8" className="text-center py-5">
-                      <p className="text-muted">No hay productos registrados</p>
+                {productos.map((prod) => (
+                  <tr key={prod.idProducto}>
+                    <td>{prod.idProducto}</td>
+                    <td>{prod.nombre}</td>
+                    <td>{prod.referencia}</td>
+                    <td>{formatPrice(prod.precio)}</td>
+                    <td>{prod.cantidadStock}</td>
+                    <td>{prod.tipoProducto}</td>
+                    <td>{formatDate(prod.fechaRegistro)}</td>
+                    <td className="acciones-cell">
+                      <button className="btn-sm btn-edit" onClick={() => openEditModal(prod)}>
+                        ✏️
+                      </button>
+                      <button className="btn-sm btn-delete" onClick={() => handleDelete(prod.idProducto, prod.nombre)}>
+                        🗑️
+                      </button>
                     </td>
                   </tr>
-                ) : (
-                  productos.map((prod) => (
-                    <tr key={prod.idProducto}>
-                      <td>{prod.idProducto}</td>
-                      <td className="fw-bold">{prod.nombre}</td>
-                      <td>
-                        <span className="badge bg-secondary">{prod.referencia}</span>
-                      </td>
-                      <td className="text-end">{formatPrice(prod.precio)}</td>
-                      <td>
-                        <span className={`badge ${
-                          prod.cantidadStock <= prod.nivelMinimoStock 
-                            ? 'bg-danger' 
-                            : 'bg-success'
-                        }`}>
-                          {prod.cantidadStock}
-                        </span>
-                      </td>
-                      <td>
-                        <span className={`badge ${
-                          prod.tipoProducto === 'Ropa' ? 'bg-info' : 'bg-warning'
-                        }`}>
-                          {prod.tipoProducto}
-                        </span>
-                      </td>
-                      <td>{formatDate(prod.fechaRegistro)}</td>
-                      <td>
-                        <div className="btn-group" role="group">
-                          <button 
-                            className="btn btn-sm btn-outline-light"
-                            title="Editar"
-                            onClick={() => openEditModal(prod)}
-                          >
-                            ✏️
-                          </button>
-                          <button 
-                            className="btn btn-sm btn-outline-danger"
-                            title="Eliminar"
-                            onClick={() => handleDelete(prod.idProducto, prod.nombre)}
-                          >
-                            🗑️
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                )}
+                ))}
               </tbody>
             </table>
           </div>
         )}
-      </div>
 
-      {showModal && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content-producto" onClick={(e) => e.stopPropagation()}>
-            
-            <div className="modal-header-producto">
-              <h3>{isEditing ? 'Editar Producto' : 'Nuevo Producto'}</h3>
-              <button className="btn-close-modal" onClick={closeModal}>
-                ×
-              </button>
-            </div>
+        {showModal && (
+          <div className="modal-overlay" onClick={closeModal}>
+            <div className="modal-content-producto" onClick={(e) => e.stopPropagation()}>
+              <div className="modal-header-producto">
+                <h3>{isEditing ? '✏️ Editar Producto' : '➕ Crear Nuevo Producto'}</h3>
+                <button className="btn-close-modal" onClick={closeModal}>✕</button>
+              </div>
 
-            <form onSubmit={handleSubmit} className="modal-form">
-              
-              <div className="form-row">
+              <form onSubmit={handleSubmit} className="modal-form">
                 <div className="form-group-modal">
-                  <label>Nombre *</label>
+                  <label htmlFor="nombre">Nombre *</label>
                   <input
                     type="text"
+                    id="nombre"
                     name="nombre"
                     value={currentProducto.nombre}
                     onChange={handleInputChange}
-                    placeholder="Ej: Camisa Formal"
                     required
                   />
                 </div>
 
                 <div className="form-group-modal">
-                  <label>Referencia *</label>
+                  <label htmlFor="referencia">Referencia *</label>
                   <input
                     type="text"
+                    id="referencia"
                     name="referencia"
                     value={currentProducto.referencia}
                     onChange={handleInputChange}
-                    placeholder="Ejemplo: CAM-001"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="form-group-modal">
-                <label>Descripción</label>
-                <textarea
-                  name="descripcion"
-                  value={currentProducto.descripcion}
-                  onChange={handleInputChange}
-                  placeholder="Descripción del producto"
-                  rows="3"
-                />
-              </div>
-
-              <div className="form-row">
-                <div className="form-group-modal">
-                  <label>Precio *</label>
-                  <input
-                    type="number"
-                    name="precio"
-                    value={currentProducto.precio}
-                    onChange={handleInputChange}
-                    placeholder="Ej: 50000"
-                    min="0"
-                    step="0.01"
                     required
                   />
                 </div>
 
                 <div className="form-group-modal">
-                  <label>Existencias</label>
-                  <input
-                    type="number"
-                    name="cantidadStock"
-                    value={currentProducto.cantidadStock}
+                  <label htmlFor="descripcion">Descripción</label>
+                  <textarea
+                    id="descripcion"
+                    name="descripcion"
+                    value={currentProducto.descripcion}
                     onChange={handleInputChange}
-                    placeholder="Ej: 50"
-                    min="0"
-                  />
-                </div>
-              </div>
-
-              <div className="form-row">
-                <div className="form-group-modal">
-                  <label>Nivel Mínimo</label>
-                  <input
-                    type="number"
-                    name="nivelMinimoStock"
-                    value={currentProducto.nivelMinimoStock}
-                    onChange={handleInputChange}
-                    placeholder="Ej: 10"
-                    min="0"
+                    rows="3"
                   />
                 </div>
 
+                <div className="form-row">
+                  <div className="form-group-modal">
+                    <label htmlFor="precio">Precio *</label>
+                    <input
+                      type="number"
+                      id="precio"
+                      name="precio"
+                      value={currentProducto.precio}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+
+                  <div className="form-group-modal">
+                    <label htmlFor="cantidadStock">Stock *</label>
+                    <input
+                      type="number"
+                      id="cantidadStock"
+                      name="cantidadStock"
+                      value={currentProducto.cantidadStock}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+
+                  <div className="form-group-modal">
+                    <label htmlFor="nivelMinimoStock">Stock Mínimo</label>
+                    <input
+                      type="number"
+                      id="nivelMinimoStock"
+                      name="nivelMinimoStock"
+                      value={currentProducto.nivelMinimoStock}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+
                 <div className="form-group-modal">
-                  <label>Tipo *</label>
+                  <label htmlFor="tipoProducto">Tipo de Producto</label>
                   <select
+                    id="tipoProducto"
                     name="tipoProducto"
                     value={currentProducto.tipoProducto}
                     onChange={handleInputChange}
-                    required
                   >
                     <option value="Ropa">Ropa</option>
-                    <option value="Accesorio">Accesorio</option>
+                    <option value="Accesorios">Accesorios</option>
+                    <option value="Calzado">Calzado</option>
+                    <option value="Bolsas">Bolsas</option>
                   </select>
                 </div>
-              </div>
 
-              <div className="modal-buttons">
-                <button type="button" className="btn-cancel" onClick={closeModal}>
-                  Cancelar
-                </button>
-                <button type="submit" className="btn-save">
-                  {isEditing ? 'Actualizar' : 'Guardar'}
-                </button>
-              </div>
-
-            </form>
+                <div className="modal-buttons">
+                  <button type="button" className="btn-cancel" onClick={closeModal}>
+                    Cancelar
+                  </button>
+                  <button type="submit" className="btn-save">
+                    {isEditing ? 'Actualizar' : 'Crear'} Producto
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

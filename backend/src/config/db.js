@@ -23,3 +23,4 @@ const getConnection = new sql.ConnectionPool(config)
   .catch((err) => console.log("Error de conexion: ", err));
 
 export { sql, getConnection };
+export default config;

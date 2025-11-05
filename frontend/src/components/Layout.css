@@ -1,16 +1,13 @@
 /**
  * Estilos para el layout principal de la aplicación
  * @version 1.0.0
- * 
+ *
  * Define la estructura base y el fondo de la aplicación,
  * asegurando una disposición correcta de los elementos
  * y una imagen de fondo responsiva.
  */
 
-/* Contenedor principal del layout
- * @component layout-container
- * Configuración del contenedor flex y fondo de la aplicación
- */
+/* Contenedor principal del layout */
 .layout-container {
   min-height: 100vh;
   display: flex;
@@ -21,10 +18,5 @@
   background-attachment: fixed;
 }
 
-.main-content {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem 1rem;
-}
+/* NO AGREGUES MÁS ESTILOS AQUÍ
+   .main-content YA ESTÁ DEFINIDO EN App.css */

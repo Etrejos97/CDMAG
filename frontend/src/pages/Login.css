@@ -1,154 +1,180 @@
 /**
  * Estilos para la página de inicio de sesión
- * @version 2.0.0
- * 
- * Versión simplificada sin botón de registro
  */
 
-/* Contenedor principal del formulario de login */
+/* Contenedor principal */
 .login-container {
   width: 100%;
-  max-width: 450px;
+  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 2rem;
+  background: linear-gradient(135deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.15) 100%);
 }
 
-/* Tarjeta principal con efecto glassmorphism */
+/* Tarjeta de login */
 .glass-card-login {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 3rem 2.5rem;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-radius: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 3.5rem 3rem;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 420px;
+  width: 100%;
 }
 
-/* Título principal */
+.glass-card-login:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+}
+
+/* Título */
 .glass-card-login h2 {
-  font-size: 1.8rem;
-  letter-spacing: 1.5px;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8),
-               0 0 15px rgba(0, 0, 0, 0.6);
-  margin-bottom: 0.5rem;
-  text-align: center;
+  font-size: 2rem;
   font-weight: 800;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.6);
+  margin-bottom: 0.8rem;
+  text-align: center;
+  color: #ffffff;
 }
 
 /* Subtítulo */
 .login-subtitle {
-  font-size: 0.85rem;
-  letter-spacing: 1px;
+  font-size: 0.9rem;
+  letter-spacing: 1.5px;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   text-align: center;
-  opacity: 0.9;
+  opacity: 0.95;
+  color: #ffffff;
 }
 
 /* Formulario */
 .login-form {
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
 }
 
 /* Grupos de formulario */
 .form-group {
-  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
 }
 
-/* Labels */
 .form-group label {
-  display: block;
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
-  letter-spacing: 0.5px;
+  color: #ffffff;
 }
 
-/* Inputs */
-.form-control {
-  width: 100%;
-  padding: 0.85rem 1rem;
-  font-size: 1rem;
-  background: rgba(255, 255, 255, 0.15);
+.form-group input {
+  background: rgba(255, 255, 255, 0.09);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  padding: 0.95rem 1.1rem;
+  font-size: 0.98rem;
+  color: #ffffff;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 10px;
-  color: white;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Placeholder del input */
-.form-control::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+.form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.65);
 }
 
-/* Input en focus */
-.form-control:focus {
+.form-group input:focus {
   outline: none;
+  background: rgba(255, 255, 255, 0.15);
   border-color: rgba(102, 126, 234, 0.8);
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 0 20px rgba(102, 126, 234, 0.4),
-              0 4px 15px rgba(0, 0, 0, 0.2);
-  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(102, 126, 234, 0.4);
 }
 
-/* Botón de iniciar sesión */
+/* Botón INGRESAR */
 .btn-login {
-  width: 100%;
-  padding: 0.9rem;
-  font-size: 1.1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  padding: 1.1rem;
+  font-size: 0.98rem;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border: none;
-  border-radius: 10px;
-  color: white;
+  border-radius: 12px;
   cursor: pointer;
+  margin-top: 0.5rem;
   transition: all 0.3s ease;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-  margin-top: 1rem;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.45);
 }
 
-/* Hover en botón de login */
 .btn-login:hover {
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
   transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.5);
+  box-shadow: 0 8px 28px rgba(102, 126, 234, 0.65);
 }
 
-/* Active state del botón */
 .btn-login:active {
   transform: translateY(-1px);
-  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 3px 12px rgba(102, 126, 234, 0.4);
 }
 
-/* Enlace de contraseña olvidada */
-.forgot-password {
-  text-align: center;
-  margin-top: 1.5rem;
+/* Footer del login */
+.login-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.forgot-password a {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.9rem;
+.btn-forgot-password {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.85rem;
+  cursor: pointer;
   text-decoration: none;
   transition: all 0.3s ease;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  font-weight: 500;
   letter-spacing: 0.5px;
 }
 
-.forgot-password a:hover {
-  color: #fbbf24; /* Amarillo dorado */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7),
-               0 0 10px rgba(251, 191, 36, 0.6);
+.btn-forgot-password:hover {
+  color: #ffffff;
+  text-decoration: underline;
 }
 
 /* Responsive */
-@media (max-width: 576px) {
+@media (max-width: 768px) {
+  .glass-card-login {
+    padding: 2.5rem 2rem;
+  }
+
+  .glass-card-login h2 {
+    font-size: 1.6rem;
+  }
+
+  .login-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .form-group input {
+    font-size: 0.92rem;
+    padding: 0.85rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
   .login-container {
     padding: 1rem;
   }
@@ -158,20 +184,15 @@
   }
 
   .glass-card-login h2 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
   }
 
-  .login-subtitle {
-    font-size: 0.75rem;
+  .login-form {
+    gap: 1.4rem;
   }
 
-  .form-control {
-    padding: 0.75rem;
-    font-size: 0.95rem;
-  }
-
-  .btn-login {
-    padding: 0.8rem;
-    font-size: 1rem;
+  .btn-forgot-password {
+    font-size: 0.8rem;
   }
 }

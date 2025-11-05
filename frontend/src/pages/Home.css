@@ -1,22 +1,22 @@
 /**
  * Estilos para la página de inicio (Home)
- * Este archivo contiene los estilos específicos para la página principal,
- * incluyendo efectos de vidrio (glassmorphism) y animaciones.
  */
 
-/* Contenedor principal - Define el ancho máximo y el padding para el contenido */
+/* Contenedor principal - Centra verticalmente dentro del espacio disponible */
 .home-container {
   width: 100%;
-  max-width: 800px;
-  padding: 2rem;
+  max-width: 100%;
+  height: 100%;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 2rem;
 }
 
-/* Tarjeta principal con efecto de vidrio (glassmorphism) 
- * Utiliza backdrop-filter para el efecto de desenfoque y
- * rgba para transparencia controlada
- */
+/* Tarjeta principal con efecto glassmorphism */
 .glass-card-home {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 20px;
@@ -24,84 +24,159 @@
   padding: 4rem 3rem;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 600px;
+  width: 100%;
 }
 
-/* Estilo para el título principal 
- * Aplica efectos de sombra de texto en capas para mejor legibilidad
- * sobre el fondo transparente
- */
+.glass-card-home:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+}
+
+/* Título principal */
 .glass-card-home h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
   letter-spacing: 2px;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8),
                0 0 20px rgba(0, 0, 0, 0.6);
-  font-weight: 900 !important;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
 }
 
-/* Estilo para el subtítulo principal
- * Utiliza un tamaño de fuente más grande y sombras más sutiles
- */
-.glass-card-home .lead {
-  font-size: 1.5rem;
-  font-weight: 400;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7),
-               0 0 15px rgba(0, 0, 0, 0.5);
-}
-
-.glass-card-home p {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7),
-               0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-/* Estilos base para todos los botones
- * Define la apariencia común y las animaciones
- * @transition: Animación suave para el hover
- * @box-shadow: Sombra suave para efecto de elevación
- */
-.glass-card-home .btn {
-  font-weight: 600;
-  border-radius: 50px;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
+/* Subtítulo */
+.glass-card-home .subtitle {
+  font-size: 1rem;
   letter-spacing: 1px;
-  border-width: 2px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+  margin-bottom: 1.5rem;
+  opacity: 0.95;
+  color: #ffffff;
 }
 
-/* Estilo específico para el botón primario (light)
- * Usa fondo blanco sólido para mayor contraste
- */
-.glass-card-home .btn-light {
-  background: white;
-  color: #333;
-  border-color: white;
+/* Descripción */
+.glass-card-home .description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+  margin-bottom: 2.5rem;
+  opacity: 0.9;
+  color: #ffffff;
 }
 
-.glass-card-home .btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+/* Contenedor de botones */
+.home-buttons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
-/* Estilo para el botón secundario (outline)
- * Implementa efecto de vidrio similar al fondo pero más sutil
- * @backdrop-filter: Aplica desenfoque para efecto de transparencia
- * @text-shadow: Mejora la legibilidad del texto sobre el fondo transparente
- */
-.glass-card-home .btn-outline-light {
-  background: rgba(255, 255, 255, 0.15);
+/* Botón Primario */
+.btn-primary-home {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  padding: 1rem 2rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  display: inline-block;
+}
+
+.btn-primary-home:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.btn-primary-home:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
+}
+
+/* Botón Secundario */
+.btn-secondary-home {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 1rem 2rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  color: white;
-  border-color: white;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-/* Estado hover del botón outline
- * Aumenta la opacidad del fondo manteniendo el efecto de vidrio
- */
-.glass-card-home .btn-outline-light:hover {
+.btn-secondary-home:hover {
   background: rgba(255, 255, 255, 0.3);
-  border-color: white;
-  color: white;
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+.btn-secondary-home:active {
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .glass-card-home {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .glass-card-home h1 {
+    font-size: 1.8rem;
+  }
+
+  .glass-card-home .subtitle,
+  .glass-card-home .description {
+    font-size: 0.9rem;
+  }
+
+  .home-buttons {
+    gap: 1rem;
+  }
+
+  .btn-primary-home,
+  .btn-secondary-home {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .glass-card-home {
+    padding: 2rem 1rem;
+  }
+
+  .glass-card-home h1 {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+  }
+
+  .home-buttons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .btn-primary-home,
+  .btn-secondary-home {
+    width: 100%;
+  }
 }

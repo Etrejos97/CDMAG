@@ -26,17 +26,13 @@ import './Layout.css';
  *   );
  * }
  */
-const Layout = () => {
+export default function Layout({ children }) {
   return (
     <div className="layout-container">
-      <Navbar />
       <main className="main-content">
-        <Outlet />
+        {children}
       </main>
-      <Footer />
     </div>
   );
-};
+}
 
-// Exportamos el componente para su uso en otras partes de la aplicación
-export default Layout;

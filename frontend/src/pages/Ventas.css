@@ -1,0 +1,416 @@
+.ventas-container {
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.glass-card-ventas {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: white;
+}
+
+.ventas-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.ventas-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.ventas-header .subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1rem;
+}
+
+.ventas-layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 2rem;
+}
+
+/* ============= SECCIÓN IZQUIERDA ============= */
+
+.ventas-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Cliente */
+.seccion-cliente {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.seccion-cliente h3 {
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.cliente-seleccionado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.nombre-cliente {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.cedula-cliente {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.btn-cambiar-cliente {
+  background: rgba(255, 59, 59, 0.8);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-cambiar-cliente:hover {
+  background: rgba(255, 59, 59, 1);
+  transform: scale(1.05);
+}
+
+.buscar-cliente input {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1rem;
+}
+
+.buscar-cliente input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.lista-clientes {
+  list-style: none;
+  margin-top: 0.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.lista-clientes li {
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: background 0.2s;
+}
+
+.lista-clientes li:hover {
+  background: rgba(102, 126, 234, 0.2);
+}
+
+.lista-clientes li:last-child {
+  border-bottom: none;
+}
+
+.lista-clientes .nombre {
+  font-weight: bold;
+}
+
+.lista-clientes .cedula {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Productos */
+.seccion-productos {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.seccion-productos h3 {
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.search-producto {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1rem;
+}
+
+.search-producto::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.grid-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.card-producto {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.card-producto:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.card-producto h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-producto .ref {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-producto .precio {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 0.5rem 0;
+  color: #4ade80;
+}
+
+.card-producto .stock {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+}
+
+.btn-agregar {
+  width: 100%;
+  background: rgba(74, 222, 128, 0.8);
+  color: white;
+  border: none;
+  padding: 0.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.btn-agregar:hover {
+  background: rgba(74, 222, 128, 1);
+  transform: scale(1.05);
+}
+
+/* ============= SECCIÓN DERECHA (CARRITO) ============= */
+
+.ventas-right {
+  position: sticky;
+  top: 2rem;
+  height: fit-content;
+}
+
+.carrito-container {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1.5rem;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.carrito-container h3 {
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  text-align: center;
+}
+
+.carrito-vacio {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.lista-carrito {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.item-carrito {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.item-info {
+  margin-bottom: 0.8rem;
+}
+
+.item-nombre {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.item-precio {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.item-controles {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.item-controles button {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.2s;
+}
+
+.item-controles button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.item-controles .btn-eliminar {
+  margin-left: auto;
+  width: auto;
+  padding: 0.3rem 0.6rem;
+}
+
+.item-controles span {
+  font-weight: bold;
+  min-width: 30px;
+  text-align: center;
+}
+
+.item-subtotal {
+  text-align: right;
+  font-weight: bold;
+  color: #4ade80;
+  font-size: 1.1rem;
+}
+
+/* Resumen */
+.resumen-venta {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.linea-resumen {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.linea-resumen.total {
+  border-top: 2px solid rgba(255, 255, 255, 0.3);
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #4ade80;
+}
+
+.btn-procesar-venta {
+  width: 100%;
+  background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(74, 222, 128, 0.4);
+}
+
+.btn-procesar-venta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(74, 222, 128, 0.6);
+}
+
+/* Scrollbar personalizado */
+.grid-productos::-webkit-scrollbar,
+.lista-carrito::-webkit-scrollbar,
+.lista-clientes::-webkit-scrollbar {
+  width: 8px;
+}
+
+.grid-productos::-webkit-scrollbar-track,
+.lista-carrito::-webkit-scrollbar-track,
+.lista-clientes::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.grid-productos::-webkit-scrollbar-thumb,
+.lista-carrito::-webkit-scrollbar-thumb,
+.lista-clientes::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.grid-productos::-webkit-scrollbar-thumb:hover,
+.lista-carrito::-webkit-scrollbar-thumb:hover,
+.lista-clientes::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .ventas-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .ventas-right {
+    position: static;
+  }
+}
