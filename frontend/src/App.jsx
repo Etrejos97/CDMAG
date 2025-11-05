@@ -1,4 +1,3 @@
-// src/App.jsx
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -10,7 +9,7 @@ import Login from './pages/Login';
 import Producto from './pages/Producto';
 import Ventas from './pages/Ventas';
 import AdminDashboard from './pages/AdminDashboard';
-
+import GestionUsuarios from './pages/GestionUsuarios';
 import './App.css';
 
 function AppContent() {
@@ -22,30 +21,22 @@ function AppContent() {
   const isAdminRoute = location.pathname.startsWith('/admin');
   const isUserRoute = location.pathname.startsWith('/user');
 
-  // Navbar NO se muestra en login, home, y tampoco en dashboards (porque tienen Sidebar)
+  // Navbar NO se muestra en login, home, y tampoco en dashboards porque tienen Sidebar
   const showNavbar = !isLoginPage && !isHomePage && !isAdminRoute && !isUserRoute;
 
   return (
     <>
       {showNavbar && <Navbar />}
-
       <Routes>
-        {/* ==================== RUTAS PÚBLICAS ==================== */}
+        {/* RUTAS PÚBLICAS */}
 
         {/* RUTA LOGIN - Sin Layout, sin Navbar */}
         <Route path="/login" element={<Login />} />
 
         {/* RUTA HOME - Con Layout y sin Navbar */}
-        <Route
-          path="/"
-          element={
-            <Layout>
-              <Home />
-            </Layout>
-          }
-        />
+        <Route path="/" element={<Layout><Home /></Layout>} />
 
-        {/* ==================== RUTAS PROTEGIDAS - USUARIO REGULAR ==================== */}
+        {/* RUTAS PROTEGIDAS - USUARIO REGULAR */}
 
         {/* Productos - Usuarios autenticados */}
         <Route
@@ -71,14 +62,24 @@ function AppContent() {
           }
         />
 
-        {/* ==================== RUTAS PROTEGIDAS - ADMIN DASHBOARD (PASO 1) ==================== */}
+        {/* RUTAS PROTEGIDAS - ADMIN */}
 
-        {/* Admin Dashboard - Solo Administrador */}
+        {/* PASO 1: Admin Dashboard - Solo Administrador */}
         <Route
           path="/admin/dashboard"
           element={
             <ProtectedRoute requiredRoles={['Administrador']}>
               <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* PASO 2: Gestión Usuarios - Solo Administrador */}
+        <Route
+          path="/admin/usuarios"
+          element={
+            <ProtectedRoute requiredRoles={['Administrador']}>
+              <GestionUsuarios />
             </ProtectedRoute>
           }
         />
@@ -107,11 +108,10 @@ function AppContent() {
           }
         />
 
-        {/* ==================== RUTAS PROTEGIDAS - USER DASHBOARD (PASO 3) ==================== */}
-        {/* Esto se agregará en el Paso 3 - Por ahora comentado para evitar errores */}
+        {/* RUTAS PROTEGIDAS - USER DASHBOARD */}
 
-        {/*
-        <Route
+        {/* PASO 3: Esto se agregará en el Paso 3 - Por ahora comentado para evitar errores */}
+        {/* <Route
           path="/user/dashboard"
           element={
             <ProtectedRoute requiredRoles={['Usuario']}>
@@ -140,11 +140,8 @@ function AppContent() {
               </Layout>
             </ProtectedRoute>
           }
-        />
-        */}
+        /> */}
       </Routes>
-
-      {/* Footer siempre visible */}
       <Footer />
     </>
   );
