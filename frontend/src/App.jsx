@@ -1,3 +1,4 @@
+// ...existing code...
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -19,11 +20,9 @@ function AppContent() {
   // Detecta la ruta actual
   const isLoginPage = location.pathname === '/login';
   const isHomePage = location.pathname === '/';
-  const isAdminRoute = location.pathname.startsWith('/admin');
-  const isUserRoute = location.pathname.startsWith('/user');
 
-  // Navbar NO se muestra en login, home, y tampoco en dashboards porque tienen Sidebar
-  const showNavbar = !isLoginPage && !isHomePage && !isAdminRoute && !isUserRoute;
+  // Mostrar Navbar SOLO en /login y /
+  const showNavbar = isLoginPage || isHomePage;
 
   return (
     <>
@@ -31,10 +30,10 @@ function AppContent() {
       <Routes>
         {/* RUTAS PÚBLICAS */}
 
-        {/* RUTA LOGIN - Sin Layout, sin Navbar */}
+        {/* RUTA LOGIN - Sin Layout, con Navbar */}
         <Route path="/login" element={<Login />} />
 
-        {/* RUTA HOME - Con Layout y sin Navbar */}
+        {/* RUTA HOME - Con Layout y con Navbar */}
         <Route path="/" element={<Layout><Home /></Layout>} />
 
         {/* RUTAS PROTEGIDAS - USUARIO REGULAR */}
@@ -65,7 +64,6 @@ function AppContent() {
 
         {/* RUTAS PROTEGIDAS - ADMIN */}
 
-        {/* PASO 1: Admin Dashboard - Solo Administrador */}
         <Route
           path="/admin/dashboard"
           element={
@@ -75,7 +73,6 @@ function AppContent() {
           }
         />
 
-        {/* PASO 2: Gestión Usuarios - Solo Administrador */}
         <Route
           path="/admin/usuarios"
           element={
@@ -85,7 +82,6 @@ function AppContent() {
           }
         />
 
-        {/* Admin Productos - Solo Administrador */}
         <Route
           path="/admin/productos"
           element={
@@ -97,7 +93,6 @@ function AppContent() {
           }
         />
 
-        {/* Admin Ventas - Solo Administrador */}
         <Route
           path="/admin/ventas"
           element={
@@ -111,7 +106,6 @@ function AppContent() {
 
         {/* RUTAS PROTEGIDAS - USER DASHBOARD */}
 
-        {/* PASO 3: User Dashboard - Solo Usuario */}
         <Route
           path="/user/dashboard"
           element={
@@ -121,7 +115,6 @@ function AppContent() {
           }
         />
 
-        {/* User Productos */}
         <Route
           path="/user/productos"
           element={
@@ -133,7 +126,6 @@ function AppContent() {
           }
         />
 
-        {/* User Ventas */}
         <Route
           path="/user/ventas"
           element={

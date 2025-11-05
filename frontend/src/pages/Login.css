@@ -1,6 +1,4 @@
-/**
- * Estilos para la página de inicio de sesión
- */
+
 
 /* Contenedor principal */
 .login-container {
@@ -10,8 +8,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: calc(2rem + 70px) 2rem 2rem; /* <-- espacio superior para la navbar (70px) */
   background: linear-gradient(135deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.15) 100%);
+  box-sizing: border-box; /* asegúrate de que el padding no rompa el layout */
 }
 
 /* Tarjeta de login */
