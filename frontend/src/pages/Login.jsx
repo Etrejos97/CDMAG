@@ -50,7 +50,7 @@ export default function Login() {
   return (
     <div className="login-container">
       <div className="glass-card-login">
-        <h2>🏢 Casa de Modas A.G</h2>
+        <h2>👗 Casa de Modas A.G</h2>
         <p>Sistema de Gestión de Inventario</p>
 
         {error && (

@@ -181,7 +181,7 @@ export default function Producto() {
         <div className="producto-container">
           <div className="glass-card-producto">
             <div className="producto-header">
-              <h1>🎁 Gestión de Productos</h1>
+              <h1>📦 Gestión de Productos</h1>
               <p className="subtitle">Casa de Modas A.G - Administra tu inventario</p>
             </div>
 

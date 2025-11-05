@@ -1,26 +1,31 @@
-// src/components/Sidebar.jsx
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/useAuth';
 import './Sidebar.css';
 
 export default function Sidebar() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
 
   // Menú basado en rol
   const menuItems = {
     Administrador: [
-      { path: '/admin/dashboard', label: '📊 Dashboard', icon: '📊' },
-      { path: '/admin/usuarios', label: '👥 Gestión Usuarios', icon: '👥' },
-      { path: '/admin/productos', label: '📦 Productos', icon: '📦' },
+      { path: '/admin/dashboard', label: 'Dashboard', icon: '📊' },
+      { path: '/admin/usuarios', label: 'Gestión Usuarios', icon: '👥' },
+      { path: '/admin/productos', label: 'Productos', icon: '📦' },
       { path: '/admin/ventas', label: '🛒 Ventas', icon: '🛒' }
     ],
     Usuario: [
-      { path: '/user/dashboard', label: '📊 Dashboard', icon: '📊' },
-      { path: '/user/productos', label: '📦 Productos', icon: '📦' },
-      { path: '/user/ventas', label: '🛒 Ventas', icon: '🛒' }
+      { path: '/user/dashboard', label: 'Dashboard', icon: '📊' },
+      { path: '/user/productos', label: 'Productos', icon: '📦' },
+      { path: '/user/ventas', label: 'Ventas', icon: '🛒' }
     ]
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
   };
 
   const items = menuItems[user?.rol] || [];
@@ -28,7 +33,7 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
-        <h2>🏢 CDMAG</h2>
+        <h2>👗 CDMAG</h2>
         <p className="user-role">
           {user?.rol === 'Administrador' ? '🔐 Admin' : '👤 Usuario'}
         </p>
@@ -52,6 +57,9 @@ export default function Sidebar() {
       <div className="sidebar-footer">
         <p>👤 {user?.nombre}</p>
         <p className="email">{user?.correo}</p>
+        <button className="logout-btn" onClick={handleLogout}>
+          🚪 Cerrar Sesión
+        </button>
       </div>
     </aside>
   );
