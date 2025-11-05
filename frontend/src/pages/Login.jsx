@@ -5,7 +5,7 @@ import './Login.css';
 
 export default function Login() {
   const [usuario, setUsuario] = useState('');
-  const [contraseña, setContraseña] = useState('');
+  const [contrasea, setContrasea] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -17,14 +17,26 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const result = await login(usuario, contraseña);
+      const result = await login(usuario, contrasea);
+
       if (result.success) {
-        navigate('/productos');
+        if (result.usuario && result.usuario.rol) {
+          if (result.usuario.rol === 'Administrador') {
+            navigate('/admin/dashboard');  // ✅ Agregué la /
+          } else if (result.usuario.rol === 'Usuario') {
+            navigate('/user/dashboard');   // ✅ Agregué la /
+          } else {
+            navigate('/productos');
+          }
+        } else {
+          console.warn('Usuario no viene en la respuesta, usando fallback a /productos');
+          navigate('/productos');
+        }
       } else {
         setError(result.message || 'Error al iniciar sesión');
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error en handleSubmit:', error);
       setError('Error de conexión con el servidor');
     } finally {
       setLoading(false);
@@ -38,14 +50,29 @@ export default function Login() {
   return (
     <div className="login-container">
       <div className="glass-card-login">
-        <h2>Casa de Modas A.G</h2>
+        <h2>🏢 Casa de Modas A.G</h2>
         <p>Sistema de Gestión de Inventario</p>
 
-        <form className="login-form" onSubmit={handleSubmit}>
-          {error && <div style={{ color: '#ff6b6b', textAlign: 'center', marginBottom: '1rem' }}>{error}</div>}
+        {error && (
+          <div
+            style={{
+              color: '#ff6b6b',
+              textAlign: 'center',
+              marginBottom: '1rem',
+              padding: '0.75rem',
+              backgroundColor: 'rgba(255, 107, 107, 0.1)',
+              borderRadius: '8px',
+              fontSize: '0.9rem',
+              fontWeight: '600',
+            }}
+          >
+            ❌ {error}
+          </div>
+        )}
 
+        <form className="login-form" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="usuario">Usuario</label>
+            <label htmlFor="usuario">👤 USUARIO</label>
             <input
               type="text"
               id="usuario"
@@ -53,18 +80,20 @@ export default function Login() {
               value={usuario}
               onChange={(e) => setUsuario(e.target.value)}
               required
+              disabled={loading}
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="contraseña">Contraseña</label>
+            <label htmlFor="contrasea">🔐 CONTRASEÑA</label>
             <input
               type="password"
-              id="contraseña"
+              id="contrasea"
               placeholder="Tu contraseña"
-              value={contraseña}
-              onChange={(e) => setContraseña(e.target.value)}
+              value={contrasea}
+              onChange={(e) => setContrasea(e.target.value)}
               required
+              disabled={loading}
             />
           </div>
 
@@ -73,7 +102,7 @@ export default function Login() {
             className="btn-login"
             disabled={loading}
           >
-            {loading ? 'Cargando...' : '✓ INICIAR SESIÓN'}
+            🔓 {loading ? 'Cargando...' : 'INICIAR SESIÓN'}
           </button>
         </form>
 
@@ -82,8 +111,9 @@ export default function Login() {
             type="button"
             className="btn-forgot-password"
             onClick={handleForgotPassword}
+            disabled={loading}
           >
-            ¿Olvidaste tu contraseña?
+            ❓ ¿Olvidaste tu contraseña?
           </button>
         </div>
       </div>

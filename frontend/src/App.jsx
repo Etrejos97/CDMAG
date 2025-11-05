@@ -1,6 +1,7 @@
+// src/App.jsx
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import { ProtectedRoute } from './components/ProtectedRoute';
+import ProtectedRoute from './components/ProtectedRoute';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Layout from './components/Layout';
@@ -8,23 +9,33 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Producto from './pages/Producto';
 import Ventas from './pages/Ventas';
+import AdminDashboard from './pages/AdminDashboard';
+
 import './App.css';
 
 function AppContent() {
   const location = useLocation();
+
+  // Detecta la ruta actual
   const isLoginPage = location.pathname === '/login';
   const isHomePage = location.pathname === '/';
-  const showNavbar = isLoginPage || isHomePage;
+  const isAdminRoute = location.pathname.startsWith('/admin');
+  const isUserRoute = location.pathname.startsWith('/user');
+
+  // Navbar NO se muestra en login, home, y tampoco en dashboards (porque tienen Sidebar)
+  const showNavbar = !isLoginPage && !isHomePage && !isAdminRoute && !isUserRoute;
 
   return (
     <>
       {showNavbar && <Navbar />}
-      
+
       <Routes>
-        {/* RUTA LOGIN - Sin Layout pero con Navbar */}
+        {/* ==================== RUTAS PÚBLICAS ==================== */}
+
+        {/* RUTA LOGIN - Sin Layout, sin Navbar */}
         <Route path="/login" element={<Login />} />
 
-        {/* RUTA HOME - Con Layout y Navbar */}
+        {/* RUTA HOME - Con Layout y sin Navbar */}
         <Route
           path="/"
           element={
@@ -34,7 +45,9 @@ function AppContent() {
           }
         />
 
-        {/* RUTAS PROTEGIDAS - Con Layout SIN Navbar */}
+        {/* ==================== RUTAS PROTEGIDAS - USUARIO REGULAR ==================== */}
+
+        {/* Productos - Usuarios autenticados */}
         <Route
           path="/productos"
           element={
@@ -46,6 +59,7 @@ function AppContent() {
           }
         />
 
+        {/* Ventas - Usuarios autenticados */}
         <Route
           path="/ventas"
           element={
@@ -56,9 +70,81 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+
+        {/* ==================== RUTAS PROTEGIDAS - ADMIN DASHBOARD (PASO 1) ==================== */}
+
+        {/* Admin Dashboard - Solo Administrador */}
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute requiredRoles={['Administrador']}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Admin Productos - Solo Administrador */}
+        <Route
+          path="/admin/productos"
+          element={
+            <ProtectedRoute requiredRoles={['Administrador']}>
+              <Layout>
+                <Producto />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Admin Ventas - Solo Administrador */}
+        <Route
+          path="/admin/ventas"
+          element={
+            <ProtectedRoute requiredRoles={['Administrador']}>
+              <Layout>
+                <Ventas />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* ==================== RUTAS PROTEGIDAS - USER DASHBOARD (PASO 3) ==================== */}
+        {/* Esto se agregará en el Paso 3 - Por ahora comentado para evitar errores */}
+
+        {/*
+        <Route
+          path="/user/dashboard"
+          element={
+            <ProtectedRoute requiredRoles={['Usuario']}>
+              <UserDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/user/productos"
+          element={
+            <ProtectedRoute requiredRoles={['Usuario']}>
+              <Layout>
+                <Producto />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/user/ventas"
+          element={
+            <ProtectedRoute requiredRoles={['Usuario']}>
+              <Layout>
+                <Ventas />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        */}
       </Routes>
 
-      {/* Footer SIEMPRE aparece */}
+      {/* Footer siempre visible */}
       <Footer />
     </>
   );

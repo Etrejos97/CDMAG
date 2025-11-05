@@ -1,10 +1,9 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/useAuth';  // ✅ CORRECTO
-;
+import { useAuth } from '../context/useAuth';
 
-export const ProtectedRoute = ({ children, requiredRoles }) => {
-  const { isAuthenticated, hasAccess, loading } = useAuth();
+export default function ProtectedRoute({ children, requiredRoles = [] }) {
+  const { isAuthenticated, loading, user } = useAuth();
 
   if (loading) {
     return (
@@ -16,7 +15,7 @@ export const ProtectedRoute = ({ children, requiredRoles }) => {
         fontSize: '1.2rem',
         color: '#667eea',
       }}>
-        ⏳ Cargando...
+        Cargando...
       </div>
     );
   }
@@ -25,9 +24,12 @@ export const ProtectedRoute = ({ children, requiredRoles }) => {
     return <Navigate to="/login" replace />;
   }
 
-  if (requiredRoles && !hasAccess(requiredRoles)) {
-    return <Navigate to="/productos" replace />;
+  if (requiredRoles.length > 0) {
+    const hasAccess = requiredRoles.includes(user?.rol);
+    if (!hasAccess) {
+      return <Navigate to="/productos" replace />;
+    }
   }
 
   return children;
-};
+}

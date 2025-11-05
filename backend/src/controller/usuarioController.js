@@ -6,50 +6,58 @@ const SECRET_KEY = process.env.JWT_SECRET || 'tu_clave_secreta_muy_segura_cambia
 // ✅ LOGIN ACTUALIZADO PARA OPCIÓN 1
 export const login = async (req, res) => {
   try {
-    const { usuarioOCorreo, contraseña } = req.body;
+    // ✅ CAMBIO: Recibir "usuario" en lugar de "usuarioOCorreo"
+    const { usuario, contrasea } = req.body;
 
-    if (!usuarioOCorreo || !contraseña) {
+    if (!usuario || !contrasea) {
       return res.status(400).json({
         success: false,
-        message: 'Usuario/Correo y contraseña son requeridos',
+        message: 'Usuario/Correo y contraseña son requeridos'
       });
     }
 
-    // ✅ CAMBIO AQUÍ - Usar el nuevo método
-    const usuario = await UsuarioModel.obtenerPorUsuarioOCorreo(usuarioOCorreo, contraseña);
+    // ✅ Pasar "usuario" al método (que internamente lo trata como usuarioOCorreo)
+    const usuarioData = await UsuarioModel.obtenerPorUsuarioOCorreo(usuario, contrasea);
 
-    if (!usuario) {
+    if (!usuarioData) {
       return res.status(401).json({
         success: false,
-        message: 'Credenciales inválidas',
+        message: 'Credenciales inválidas'
       });
     }
 
     const token = jwt.sign(
-      { idUsuario: usuario.idUsuario, usuario: usuario.usuario, rol: usuario.rol },
+      {
+        idUsuario: usuarioData.idUsuario,
+        usuario: usuarioData.usuario,
+        rol: usuarioData.rol
+      },
       SECRET_KEY,
       { expiresIn: '24h' }
     );
 
+    // ✅ Retornar exactamente como espera tu Login.jsx
     res.json({
       success: true,
       usuario: {
-        idUsuario: usuario.idUsuario,
-        nombre: usuario.nombre,
-        usuario: usuario.usuario,
-        correo: usuario.correo,
-        rol: usuario.rol,
+        idUsuario: usuarioData.idUsuario,
+        nombre: usuarioData.nombre,
+        usuario: usuarioData.usuario,
+        correo: usuarioData.correo,
+        rol: usuarioData.rol
       },
-      token,
+      token
     });
+
   } catch (error) {
     console.error('Error en login:', error.message);
     res.status(500).json({
       success: false,
-      message: 'Error en el servidor',
+      message: 'Error en el servidor'
     });
   }
 };
+
 
 // Registro (sin cambios)
 export const registro = async (req, res) => {
