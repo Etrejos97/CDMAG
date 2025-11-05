@@ -10,6 +10,7 @@ import Producto from './pages/Producto';
 import Ventas from './pages/Ventas';
 import AdminDashboard from './pages/AdminDashboard';
 import GestionUsuarios from './pages/GestionUsuarios';
+import UserDashboard from './pages/UserDashboard';
 import './App.css';
 
 function AppContent() {
@@ -110,8 +111,8 @@ function AppContent() {
 
         {/* RUTAS PROTEGIDAS - USER DASHBOARD */}
 
-        {/* PASO 3: Esto se agregará en el Paso 3 - Por ahora comentado para evitar errores */}
-        {/* <Route
+        {/* PASO 3: User Dashboard - Solo Usuario */}
+        <Route
           path="/user/dashboard"
           element={
             <ProtectedRoute requiredRoles={['Usuario']}>
@@ -120,6 +121,7 @@ function AppContent() {
           }
         />
 
+        {/* User Productos */}
         <Route
           path="/user/productos"
           element={
@@ -131,6 +133,7 @@ function AppContent() {
           }
         />
 
+        {/* User Ventas */}
         <Route
           path="/user/ventas"
           element={
@@ -140,7 +143,7 @@ function AppContent() {
               </Layout>
             </ProtectedRoute>
           }
-        /> */}
+        />
       </Routes>
       <Footer />
     </>

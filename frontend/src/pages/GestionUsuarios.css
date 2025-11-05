@@ -1,331 +1,223 @@
+/**
+ * Estilos para la página de gestión de usuarios
+ * Mantiene consistencia con el diseño de Productos
+ */
+
+/* Variables de color (las mismas que Producto.css) */
+:root {
+  --text-dark: #0b1220;
+  --muted-dark: #475569;
+  --accent-1: #667eea;
+  --accent-2: #764ba2;
+  --card-bg: rgba(255,255,255,0.22);
+  --card-border: rgba(0,0,0,0.08);
+  --table-head-bg: linear-gradient(135deg,var(--accent-1) 0%,var(--accent-2) 100%);
+}
+
+/* Contenedor principal */
 .gestion-usuarios-container {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
   padding: 2rem;
-  position: relative;
+  box-sizing: border-box;
 }
 
-/* Efecto de fondo animado */
-.gestion-usuarios-container::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: 0;
-}
-
+/* Tarjeta principal */
 .glass-card-usuarios {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 25px;
+  background: var(--card-bg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 20px;
+  border: 1px solid var(--card-border);
   padding: 2.5rem;
-  box-shadow: 
-    0 8px 32px 0 rgba(31, 38, 135, 0.37),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
-  position: relative;
-  z-index: 1;
+  box-shadow:
+    0 10px 30px rgba(2,6,23,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  color: var(--text-dark);
 }
 
+/* Header */
 .usuarios-header {
-  margin-bottom: 2.5rem;
   text-align: center;
+  margin-bottom: 1.6rem;
 }
 
 .usuarios-header h1 {
-  font-size: 2.5rem;
-  color: #333;
-  margin: 0 0 0.5rem 0;
-  font-weight: 700;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  margin: 0;
+  font-size: 2.2rem;
+  color: var(--text-dark);
+  font-weight: 800;
+  text-shadow: 0 2px 18px rgba(255,255,255,0.08);
 }
 
 .usuarios-header .subtitle {
-  color: #666;
-  margin: 0;
-  font-size: 1.1rem;
+  margin-top: 0.45rem;
+  color: var(--muted-dark);
+  font-weight: 500;
 }
 
+/* Botón crear */
 .btn-primary-usuarios {
-  padding: 0.85rem 1.8rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: var(--table-head-bg);
+  color: #fff;
   border: none;
+  padding: 0.7rem 1.25rem;
   border-radius: 12px;
+  font-weight: 700;
   cursor: pointer;
-  font-weight: 600;
-  font-size: 1rem;
-  margin-bottom: 2rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-  display: inline-block;
+  box-shadow: 0 8px 24px rgba(102,126,234,0.22);
+  transition: transform .18s ease, box-shadow .18s ease;
+  margin-bottom: 1.5rem;
 }
 
 .btn-primary-usuarios:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px rgba(102,126,234,0.26);
 }
 
-.btn-primary-usuarios:active {
-  transform: translateY(0);
-}
-
+/* Tabla usuarios */
 .table-usuarios {
   width: 100%;
   border-collapse: collapse;
-  margin: 1.5rem 0;
+  background: rgba(255,255,255,0.96);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.08);
 }
 
 .table-usuarios thead {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: var(--table-head-bg);
+  color: #fff;
 }
 
 .table-usuarios th {
-  padding: 1.2rem;
+  padding: 1.05rem 1rem;
+  font-weight: 800;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   text-align: left;
-  font-weight: 600;
-  font-size: 1rem;
-  letter-spacing: 0.5px;
 }
 
 .table-usuarios td {
-  padding: 1rem 1.2rem;
-  border-bottom: 1px solid rgba(200, 200, 200, 0.3);
-  color: #333;
+  padding: 1rem;
+  color: var(--text-dark);
+  font-weight: 600;
   font-size: 0.95rem;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 .table-usuarios tbody tr {
+  background: rgba(255,255,255,0.92);
   transition: all 0.2s ease;
 }
 
 .table-usuarios tbody tr:hover {
-  background: rgba(102, 126, 234, 0.08);
+  background: rgba(245,245,250,0.98);
+  transform: translateY(-2px);
 }
 
+/* Badges de rol */
 .badge {
-  display: inline-block;
   padding: 0.5rem 1rem;
-  border-radius: 25px;
-  font-size: 0.9rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
   font-weight: 600;
-  letter-spacing: 0.3px;
 }
 
 .badge-administrador {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
-  color: white;
-  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+  background: rgba(220,38,38,0.1);
+  color: #dc2626;
 }
 
 .badge-usuario {
-  background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
-  color: white;
-  box-shadow: 0 4px 15px rgba(81, 207, 102, 0.3);
+  background: rgba(34,197,94,0.1);
+  color: #16a34a;
 }
 
-.acciones-cell {
-  display: flex;
-  gap: 0.8rem;
-  align-items: center;
-}
-
-.btn-sm {
-  padding: 0.6rem 0.9rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-edit {
-  background: linear-gradient(135deg, #4ecdc4 0%, #44a399 100%);
-  color: white;
-  box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
-}
-
-.btn-edit:hover {
-  transform: scale(1.15);
-  box-shadow: 0 6px 20px rgba(78, 205, 196, 0.5);
-}
-
-.btn-delete {
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
-  color: white;
-  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-}
-
-.btn-delete:hover {
-  transform: scale(1.15);
-  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.5);
-}
-
+/* Modal */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(5px);
+  inset: 0;
+  background: rgba(2,6,23,0.55);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
   z-index: 2000;
-  padding: 1rem;
 }
 
 .modal-content-usuarios {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 20px;
-  padding: 2.5rem;
-  max-width: 500px;
   width: 100%;
-  box-shadow: 
-    0 8px 32px 0 rgba(31, 38, 135, 0.37),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
-  animation: slideIn 0.3s ease;
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  max-width: 500px;
+  background: linear-gradient(135deg, rgba(20,25,35,0.98), rgba(15,20,30,0.98));
+  color: #fff;
+  border-radius: 14px;
+  padding: 1.6rem;
+  box-shadow: 0 18px 60px rgba(2,6,23,0.45);
 }
 
 .modal-content-usuarios h3 {
-  margin-top: 0;
-  color: #333;
-  font-size: 1.8rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  margin: 0 0 1.5rem 0;
+  font-size: 1.15rem;
+  font-weight: 800;
 }
 
 .modal-form {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
-  margin-top: 1.5rem;
+  gap: 1rem;
 }
 
 .modal-form input,
 .modal-form select {
-  padding: 0.9rem 1rem;
-  border: 2px solid rgba(102, 126, 234, 0.2);
-  border-radius: 10px;
-  font-size: 1rem;
-  background: rgba(255, 255, 255, 0.8);
-  color: #333;
-  transition: all 0.3s ease;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.95rem;
 }
 
 .modal-form input::placeholder {
-  color: #999;
-}
-
-.modal-form input:focus,
-.modal-form select:focus {
-  outline: none;
-  border-color: #667eea;
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+  color: rgba(255,255,255,0.5);
 }
 
 .modal-buttons {
   display: flex;
-  gap: 1rem;
+  justify-content: flex-end;
+  gap: 0.75rem;
   margin-top: 1.5rem;
 }
 
 .modal-buttons button {
-  flex: 1;
-  padding: 0.9rem;
-  border: none;
+  padding: 0.6rem 1rem;
   border-radius: 10px;
+  font-weight: 700;
   cursor: pointer;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: all 0.3s ease;
 }
 
 .modal-buttons button:first-child {
-  background: rgba(0, 0, 0, 0.05);
-  color: #666;
-  border: 2px solid rgba(0, 0, 0, 0.1);
-}
-
-.modal-buttons button:first-child:hover {
-  background: rgba(0, 0, 0, 0.1);
-  border-color: rgba(0, 0, 0, 0.2);
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.04);
 }
 
 .modal-buttons button:last-child {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  background: var(--table-head-bg);
+  color: #fff;
+  border: none;
+  box-shadow: 0 8px 26px rgba(102,126,234,0.18);
 }
 
-.modal-buttons button:last-child:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-}
-
-.loading-container,
-.glass-alert {
-  padding: 2rem;
-  text-align: center;
-  color: #666;
-  font-size: 1.1rem;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
-}
-
+/* Responsive */
 @media (max-width: 768px) {
-  .gestion-usuarios-container {
-    padding: 1rem;
-  }
-
-  .glass-card-usuarios {
-    padding: 1.5rem;
-  }
-
-  .usuarios-header h1 {
-    font-size: 1.8rem;
-  }
-
+  .gestion-usuarios-container { padding: 1rem; }
+  .glass-card-usuarios { padding: 1.5rem; }
+  .usuarios-header h1 { font-size: 1.6rem; }
+  .table-usuarios { font-size: 0.85rem; }
   .table-usuarios th,
-  .table-usuarios td {
-    padding: 0.75rem 0.5rem;
-    font-size: 0.85rem;
-  }
-
-  .acciones-cell {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
+  .table-usuarios td { padding: 0.75rem; }
 }
