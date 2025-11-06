@@ -254,28 +254,30 @@ export default function Producto() {
                   </div>
 
                   <form onSubmit={handleSubmit} className="modal-form">
-                    <div className="form-group-modal">
-                      <label htmlFor="nombre">Nombre</label>
-                      <input
-                        type="text"
-                        id="nombre"
-                        name="nombre"
-                        value={currentProducto.nombre}
-                        onChange={handleInputChange}
-                        required
-                      />
-                    </div>
+                    <div className="form-row">
+                      <div className="form-group-modal">
+                        <label htmlFor="nombre">Nombre</label>
+                        <input
+                          type="text"
+                          id="nombre"
+                          name="nombre"
+                          value={currentProducto.nombre}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
 
-                    <div className="form-group-modal">
-                      <label htmlFor="referencia">Referencia</label>
-                      <input
-                        type="text"
-                        id="referencia"
-                        name="referencia"
-                        value={currentProducto.referencia}
-                        onChange={handleInputChange}
-                        required
-                      />
+                      <div className="form-group-modal">
+                        <label htmlFor="referencia">Referencia</label>
+                        <input
+                          type="text"
+                          id="referencia"
+                          name="referencia"
+                          value={currentProducto.referencia}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
                     </div>
 
                     <div className="form-group-modal">
@@ -289,19 +291,19 @@ export default function Producto() {
                       ></textarea>
                     </div>
 
-                    <div className="form-row">
-                      <div className="form-group-modal">
-                        <label htmlFor="precio">Precio</label>
-                        <input
-                          type="number"
-                          id="precio"
-                          name="precio"
-                          value={currentProducto.precio}
-                          onChange={handleInputChange}
-                          required
-                        />
-                      </div>
+                    <div className="form-group-modal">
+                      <label htmlFor="precio">Precio</label>
+                      <input
+                        type="number"
+                        id="precio"
+                        name="precio"
+                        value={currentProducto.precio}
+                        onChange={handleInputChange}
+                        required
+                      />
+                    </div>
 
+                    <div className="form-row">
                       <div className="form-group-modal">
                         <label htmlFor="cantidadStock">Stock</label>
                         <input
