@@ -1,51 +1,63 @@
-import { useState, useEffect } from 'react';
-import { getProductosVenta, buscarClientes, crearVenta } from '../services/ventaService.js';
+import { useState } from 'react';
+import { getProductosVenta, buscarProductos, buscarClientes, crearVenta } from '../services/ventaService.js';
 import Sidebar from '../components/Sidebar';
 import './Ventas.css';
+import { useAuth } from '../context/useAuth.js';
 
 export default function Ventas() {
+  const { user } = useAuth();
   const [productos, setProductos] = useState([]);
   const [clientes, setClientes] = useState([]);
   const [carrito, setCarrito] = useState([]);
   const [clienteSeleccionado, setClienteSeleccionado] = useState(null);
   const [searchProducto, setSearchProducto] = useState('');
   const [searchCliente, setSearchCliente] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    cargarProductos();
-  }, []);
-
-  const cargarProductos = () => {
+  // Cargar productos sin filtro (opcional) - aquí no se carga automáticamente
+  const cargarProductos = (term = '') => {
     setLoading(true);
-
     const onSuccess = (lista) => {
       setProductos(lista);
       setLoading(false);
     };
-
-    const onError = () => {
+    const onError = (err) => {
+      console.error('Error al cargar productos:', err);
+      setProductos([]);
       setLoading(false);
     };
 
-    getProductosVenta(onSuccess, onError);
+    if (term && term.trim().length > 0) {
+      buscarProductos(term.trim(), onSuccess, onError);
+    } else {
+      getProductosVenta(onSuccess, onError);
+    }
   };
 
-  const buscarClientesHandler = (term) => {
-    setSearchCliente(term);
+  const manejarKeyProducto = (e) => {
+    if (e.key === 'Enter') {
+      const term = e.target.value;
+      setSearchProducto(term);
+      cargarProductos(term);
+    }
+  };
 
-    if (term.length > 2) {
+  const manejarKeyCliente = (e) => {
+    if (e.key === 'Enter') {
+      const term = e.target.value;
+      setSearchCliente(term);
+      if (term.trim().length === 0) {
+        setClientes([]);
+        return;
+      }
       const onSuccess = (lista) => {
         setClientes(lista);
       };
-
-      const onError = () => {
+      const onError = (err) => {
+        console.error('Error buscar clientes:', err);
         setClientes([]);
       };
-
       buscarClientes(term, onSuccess, onError);
-    } else {
-      setClientes([]);
     }
   };
 
@@ -57,7 +69,6 @@ export default function Ventas() {
 
   const agregarAlCarrito = (producto) => {
     const existente = carrito.find((item) => item.idProducto === producto.idProducto);
-
     if (existente) {
       if (existente.cantidad < producto.cantidadStock) {
         setCarrito(
@@ -90,7 +101,7 @@ export default function Ventas() {
 
   const cambiarCantidad = (idProducto, nuevaCantidad) => {
     const producto = carrito.find((item) => item.idProducto === idProducto);
-
+    if (!producto) return;
     if (nuevaCantidad === 0) {
       eliminarDelCarrito(idProducto);
     } else if (nuevaCantidad <= producto.stockDisponible) {
@@ -104,24 +115,17 @@ export default function Ventas() {
     }
   };
 
-  const calcularSubtotal = () => {
-    return carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
-  };
+  const calcularSubtotal = () => carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
 
-  const calcularIVA = () => {
-    return calcularSubtotal() * 0.19;
-  };
+  const calcularIVA = () => calcularSubtotal() * 0.19;
 
-  const calcularTotal = () => {
-    return calcularSubtotal() + calcularIVA();
-  };
+  const calcularTotal = () => calcularSubtotal() + calcularIVA();
 
   const procesarVenta = () => {
     if (!clienteSeleccionado) {
       alert('Debe seleccionar un cliente');
       return;
     }
-
     if (carrito.length === 0) {
       alert('El carrito está vacío');
       return;
@@ -131,16 +135,16 @@ export default function Ventas() {
 
     const ventaData = {
       idCliente: clienteSeleccionado.idCliente,
-      idUsuario: 1,
+      idUsuario: user?.idUsuario || user?.id || 1,
       subtotal: calcularSubtotal(),
       iva: calcularIVA(),
       total: calcularTotal(),
       numeroFactura: numeroFactura,
       detalles: carrito.map((item) => ({
         idProducto: item.idProducto,
-        nombre: item.nombre,
         cantidad: item.cantidad,
-        precio: item.precio,
+        precioUnitario: item.precio,
+        subtotal: item.precio * item.cantidad,
       })),
     };
 
@@ -149,7 +153,8 @@ export default function Ventas() {
       alert(`Venta creada exitosamente ${numeroFactura}`);
       setCarrito([]);
       setClienteSeleccionado(null);
-      cargarProductos();
+      setProductos([]);
+      setSearchProducto('');
     };
 
     const onError = (error) => {
@@ -167,11 +172,8 @@ export default function Ventas() {
       minimumFractionDigits: 0,
     }).format(price);
 
-  const productosFiltrados = productos.filter(
-    (p) =>
-      p.nombre.toLowerCase().includes(searchProducto.toLowerCase()) ||
-      p.referencia.toLowerCase().includes(searchProducto.toLowerCase())
-  );
+  const clienteNombre = (c) => c?.nombreCliente || c?.nombre || '';
+  const clienteCedula = (c) => c?.cedulaCliente || c?.cedula || '';
 
   return (
     <div style={{ display: 'flex' }}>
@@ -192,8 +194,8 @@ export default function Ventas() {
                   {clienteSeleccionado ? (
                     <div className="cliente-seleccionado">
                       <div>
-                        <p className="nombre-cliente">{clienteSeleccionado.nombreCliente}</p>
-                        <p className="cedula-cliente">CC {clienteSeleccionado.cedulaCliente}</p>
+                        <p className="nombre-cliente">{clienteNombre(clienteSeleccionado)}</p>
+                        <p className="cedula-cliente">CC {clienteCedula(clienteSeleccionado)}</p>
                       </div>
                       <button
                         className="btn-cambiar-cliente"
@@ -206,17 +208,18 @@ export default function Ventas() {
                     <div className="buscar-cliente">
                       <input
                         type="text"
-                        placeholder="Buscar cliente por nombre o cédula..."
+                        placeholder="Buscar cliente "
                         value={searchCliente}
-                        onChange={(e) => buscarClientesHandler(e.target.value)}
+                        onChange={(e) => setSearchCliente(e.target.value)}
+                        onKeyDown={manejarKeyCliente}
                       />
 
                       {clientes.length > 0 && (
                         <ul className="lista-clientes">
                           {clientes.map((cliente) => (
                             <li key={cliente.idCliente} onClick={() => seleccionarCliente(cliente)}>
-                              <span className="nombre">{cliente.nombreCliente}</span>
-                              <span className="cedula">CC {cliente.cedulaCliente}</span>
+                              <span className="nombre">{clienteNombre(cliente)}</span>
+                              <span className="cedula">CC {clienteCedula(cliente)}</span>
                             </li>
                           ))}
                         </ul>
@@ -230,16 +233,21 @@ export default function Ventas() {
                   <input
                     type="text"
                     className="search-producto"
-                    placeholder="Buscar producto..."
+                    placeholder="Buscar producto"
                     value={searchProducto}
                     onChange={(e) => setSearchProducto(e.target.value)}
+                    onKeyDown={manejarKeyProducto}
                   />
 
                   {loading ? (
                     <p>Cargando productos...</p>
+                  ) : productos.length === 0 ? (
+                    <p style={{ marginTop: '1rem', color: '#667eea' }}>
+                      
+                    </p>
                   ) : (
                     <div className="grid-productos">
-                      {productosFiltrados.map((producto) => (
+                      {productos.map((producto) => (
                         <div key={producto.idProducto} className="card-producto">
                           <h4>{producto.nombre}</h4>
                           <p className="ref">{producto.referencia}</p>
@@ -248,6 +256,7 @@ export default function Ventas() {
                           <button
                             className="btn-agregar"
                             onClick={() => agregarAlCarrito(producto)}
+                            aria-label={`Agregar ${producto.nombre}`}
                           >
                             Agregar
                           </button>
@@ -277,7 +286,7 @@ export default function Ventas() {
                             <button
                               onClick={() => cambiarCantidad(item.idProducto, item.cantidad - 1)}
                             >
-                              -
+                              −
                             </button>
                             <span>{item.cantidad}</span>
                             <button
